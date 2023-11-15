@@ -1,0 +1,63 @@
+<div class="container">
+
+  <div class="text-left form-container">
+
+    <h2 class="text-primary">{{title}}</h2>
+    <form class="form-inline" #addRestaurantForm="ngForm" (submit)="onAddRestaurant(addRestaurantForm)">
+      <div class="form-group">
+        <label for="restaurantName"><strong>Restaurant</strong></label>
+        <input id="restaurantName" name="restaurantName" class="form-control" type="text" placeholder="Enter a restaurant name.." required ngModel/>
+      </div>
+      <button class="btn btn-primary btn-sm" type="submit" [disabled]="!addRestaurantForm.form.valid">Add Restaurant</button>
+      <app-alert-message [errorMessage]="errorMessage"></app-alert-message>
+    </form>
+
+    <div class="button-control">
+      <button class="btn btn-secondary btn-sm" (click)="getAllRestaurants()">Refresh</button>
+      <button class="btn btn-secondary btn-sm" *ngIf="restaurantArr.length>0" (click)="deleteAllRestaurantRecord()">Reset</button>
+      <button
+        type="button"
+        data-bs-toggle="modal"
+        data-bs-target="#exampleModal"
+        class="btn btn-success btn-sm"
+        *ngIf="restaurantArr.length>0"
+        (click)="onDecideRestaurant()">
+          Random
+      </button>
+    </div>
+
+    <div class="restaurant-list">
+      <ul class="list-group">
+
+        <li *ngFor="let restaurant of restaurantArr" class="list-group-item">
+          <app-restaurant-card (delete)="deleteRestaurant($event)" [restaurant]="restaurant"></app-restaurant-card>
+        </li>
+
+        <div *ngIf="restaurantArr.length===0">
+          <h5 class="no-result">Add a restaurant to start..</h5>
+        </div>
+
+      </ul>
+    </div>
+  </div>
+
+
+  <!-- Modal -->
+  <div  class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">It Has Been Decided!</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div *ngIf="randomRestaurant?.name" class="modal-body">
+          {{randomRestaurant.name | titlecase}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

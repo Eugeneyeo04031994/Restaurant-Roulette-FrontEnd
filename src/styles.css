@@ -1,0 +1,17 @@
+/* You can add global styles to this file, and also import other style files */
+.form-container{
+    padding:5em 5em 1em 5em;
+    /*max-width: 30%;*/
+}
+
+.form-container .form-group{
+    margin-bottom: 0.5em;
+}
+
+.restaurant-list{
+    margin-top: 1em;
+}
+
+.btn{
+  margin: 3px 3px 3px 3px;
+}
